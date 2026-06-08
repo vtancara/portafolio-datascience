@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fact-Checker de Patrimonio Cultural Boliviano | Lab 4 — CrewAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/dist/theme/white.css">
+<link rel="stylesheet" href="https://unpkg.com/reveal.js@5.1.0/plugin/highlight/monokai.css">
+<style>
+/* ===== ESTILOS UNIFICADOS ===== */
+:root {
+  --accent-blue: #3498db;
+  --accent-coral: #e74c3c;
+  --accent-green: #2ecc71;
+  --accent-purple: #9b59b6;
+  --accent-orange: #f39c12;
+}
+@media (prefers-color-scheme: light) {
+  :root { --bg-primary: #ffffff; --bg-secondary: #f4f6f9; --text-primary: #2c3e50; --text-secondary: #555; --table-border: #ddd; --table-stripe: #f9f9f9; --code-bg: rgba(0,0,0,0.05); }
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg-primary: #1a1a2e; --bg-secondary: #16213e; --text-primary: #e0e0e0; --text-secondary: #aaa; --table-border: #444; --table-stripe: rgba(255,255,255,0.03); --code-bg: rgba(255,255,255,0.08); }
+}
+.reveal { font-family: 'Inter', system-ui, -apple-system, sans-serif !important; font-size: 28px !important; color: var(--text-primary) !important; }
+.reveal h1 { font-size: 2.0em !important; font-weight: 700 !important; text-transform: none !important; color: var(--text-primary) !important; margin-bottom: 0.4em !important; }
+.reveal h2 { font-size: 1.5em !important; font-weight: 600 !important; text-transform: none !important; color: var(--text-primary) !important; margin-bottom: 0.3em !important; }
+.reveal h3 { font-size: 1.2em !important; font-weight: 600 !important; text-transform: none !important; color: var(--text-secondary) !important; }
+.reveal p, .reveal li { font-size: 0.95em !important; line-height: 1.6 !important; }
+.reveal ul, .reveal ol { text-align: left !important; }
+.reveal table { border-collapse: collapse !important; width: 100% !important; font-size: 0.85em !important; margin: 1em 0 !important; }
+.reveal th { background: var(--accent-blue) !important; color: white !important; padding: 10px 14px !important; text-align: left !important; font-weight: 600 !important; }
+.reveal td { padding: 8px 14px !important; border-bottom: 1px solid var(--table-border) !important; }
+.reveal tr:nth-child(even) td { background: var(--table-stripe) !important; }
+.reveal pre { background: #1e1e2e !important; border-radius: 10px !important; padding: 0.5em !important; box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important; width: 95% !important; margin: 0.5em auto !important; }
+.reveal pre code { background: #1e1e2e !important; color: #cdd6f4 !important; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace !important; font-size: 0.75em !important; line-height: 1.5 !important; padding: 1em !important; border-radius: 10px !important; }
+.reveal code:not(pre code) { background: rgba(52, 152, 219, 0.15) !important; color: var(--accent-blue) !important; padding: 0.15em 0.4em !important; border-radius: 4px !important; font-size: 0.9em !important; }
+.reveal .fragment { transition: all 0.3s ease !important; }
+svg text { font-family: 'Inter', system-ui, sans-serif !important; }
+/* ===== FIN ESTILOS UNIFICADOS ===== */
+
+.reveal .slides { background: var(--bg-primary); }
+.reveal .slides section { background: var(--bg-primary); }
+
+.section-separator {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary)) !important;
+}
+.concept-box {
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--accent-blue);
+  padding: 0.8em 1.2em;
+  border-radius: 8px;
+  margin: 0.5em 0;
+  text-align: left;
+}
+.highlight-box {
+  background: linear-gradient(135deg, rgba(52,152,219,0.1), rgba(155,89,182,0.1));
+  border-radius: 12px;
+  padding: 1em;
+  margin: 0.5em 0;
+}
+.two-columns { display: flex; gap: 1.5em; align-items: flex-start; }
+.two-columns > div { flex: 1; }
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: white;
+}
+.badge-blue { background: var(--accent-blue); }
+.badge-green { background: var(--accent-green); }
+.badge-purple { background: var(--accent-purple); }
+.badge-coral { background: var(--accent-coral); }
+.badge-orange { background: var(--accent-orange); }
+.reveal .mermaid {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.reveal .mermaid svg {
+  max-height: 450px;
+}
+.veredicto-falso {
+  background: rgba(231,76,60,0.15);
+  border: 2px solid var(--accent-coral);
+  border-radius: 12px;
+  padding: 0.5em 1em;
+  font-weight: 700;
+  color: var(--accent-coral);
+  font-size: 1.2em;
+}
+.veredicto-verdadero {
+  background: rgba(46,204,113,0.15);
+  border: 2px solid var(--accent-green);
+  border-radius: 12px;
+  padding: 0.5em 1em;
+  font-weight: 700;
+  color: var(--accent-green);
+  font-size: 1.2em;
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: TÍTULO -->
+<!-- ============================================================ -->
+<section data-transition="zoom">
+  <h1>Fact-Checker de Patrimonio Cultural Boliviano</h1>
+  <h3 style="color: var(--accent-blue); font-weight: 400;">Agentes Inteligentes con CrewAI</h3>
+  <hr style="border:none; height:3px; background:linear-gradient(90deg, var(--accent-coral), var(--accent-orange), var(--accent-green)); border-radius:2px; width:50%; margin:1em auto;">
+  <p style="font-size:0.85em; color: var(--text-secondary);">Laboratorio 4 — Módulo 10: NLP</p>
+  <p style="font-size:0.7em; opacity:0.6;">Maestría en Ciencia de Datos — UAGRM</p>
+  <p style="font-size:0.75em; margin-top:0.5em;">Verónica Tancara</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: EL PROBLEMA -->
+<!-- ============================================================ -->
+<section data-transition="slide">
+  <h2>El problema</h2>
+  <div class="concept-box" style="border-left-color: var(--accent-coral);">
+    <p>En redes sociales (especialmente TikTok), creadores de contenido atribuyen danzas bolivianas a otros países sin evidencia histórica.</p>
+  </div>
+  <div class="fragment" style="margin-top:1em;">
+    <p style="font-size:0.9em;">Ejemplos frecuentes:</p>
+    <ul>
+      <li>"La Morenada es peruana"</li>
+      <li>"La Diablada se originó en Puno"</li>
+      <li>"El Caporal es una danza peruana"</li>
+    </ul>
+  </div>
+  <div class="fragment concept-box" style="border-left-color: var(--accent-blue);">
+    <strong>Pregunta:</strong> ¿Se puede automatizar la verificación de estos claims con agentes LLM?
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: LA SOLUCIÓN -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>La solución: sistema multi-agente</h2>
+  <div style="margin-top:0.5em;">
+    <div class="concept-box fragment" style="border-left-color: var(--accent-blue);">
+      <strong>Agente 1: Investigador Cultural</strong><br>
+      Busca fuentes en internet (UNESCO, medios, académicos) sobre el origen de la danza
+    </div>
+    <div class="concept-box fragment" style="border-left-color: var(--accent-purple);">
+      <strong>Agente 2: Verificador de Hechos</strong><br>
+      Contrasta fuentes, evalúa credibilidad, identifica consenso histórico
+    </div>
+    <div class="concept-box fragment" style="border-left-color: var(--accent-green);">
+      <strong>Agente 3: Redactor de Veredicto</strong><br>
+      Emite veredicto: VERDADERO / FALSO / PARCIALMENTE CIERTO
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3b: CÓDIGO - CONFIGURACIÓN LLM -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Configuración del LLM y herramientas</h2>
+  <pre><code class="language-python" style="font-size:0.65em !important;">from crewai import Agent, Task, Crew, Process, LLM
+from crewai.tools import BaseTool
+
+# LLM: Google Gemini vía API
+llm = LLM(
+    model="gemini/gemini-2.5-flash",
+    api_key=os.getenv("GOOGLE_API_KEY"),
+)
+
+# Herramienta de búsqueda web (Serper API)
+class SerperSearchTool(BaseTool):
+    name: str = "Buscar en internet"
+    description: str = "Busca información en internet sobre un tema."
+
+    def _run(self, query: str) -> str:
+        response = requests.post(
+            "https://google.serper.dev/search",
+            json={"q": query, "gl": "bo", "hl": "es", "num": 10},
+            headers={"X-API-KEY": os.getenv("SERPER_API_KEY")},
+        )
+        return "\n".join([r['title'] + ": " + r['snippet']
+                          for r in response.json().get("organic", [])])</code></pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3c: CÓDIGO - DEFINICIÓN DE AGENTES -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Definición de agentes</h2>
+  <pre><code class="language-python" style="font-size:0.65em !important;"># Agente 1: busca fuentes reales en internet
+investigador = Agent(
+    role="Investigador de Patrimonio Cultural",
+    goal="Buscar evidencia sobre el origen de la danza.",
+    backstory="Especialista en folklore andino...",
+    tools=[search_tool],  # Tiene acceso a búsqueda web
+    llm=llm,
+)
+
+# Agente 2: contrasta y evalúa credibilidad
+verificador = Agent(
+    role="Verificador de Hechos Culturales",
+    goal="Contrastar fuentes y emitir evaluación.",
+    backstory="Fact-checker profesional...",
+    llm=llm,  # Solo razonamiento, sin herramientas
+)
+
+# Agente 3: emite veredicto estructurado
+redactor = Agent(
+    role="Redactor de Veredicto",
+    goal="Emitir veredicto: VERDADERO / FALSO.",
+    backstory="Editor de agencia de fact-checking...",
+    llm=llm,
+)</code></pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3d: CÓDIGO - TAREAS Y EJECUCIÓN -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Tareas y ejecución</h2>
+  <pre><code class="language-python" style="font-size:0.65em !important;"># Cada claim pasa por los 3 agentes secuencialmente
+def verificar_claim(claim: str):
+    tarea_investigacion = Task(
+        description=f'Busca en internet sobre: "{claim}"',
+        agent=investigador,
+    )
+    tarea_verificacion = Task(
+        description=f'Verifica: "{claim}" con las fuentes.',
+        agent=verificador,
+    )
+    tarea_veredicto = Task(
+        description=f'Emite veredicto para: "{claim}"',
+        agent=redactor,
+    )
+
+    crew = Crew(
+        agents=[investigador, verificador, redactor],
+        tasks=[tarea_investigacion, tarea_verificacion, tarea_veredicto],
+        process=Process.sequential,  # Uno tras otro
+    )
+    return crew.kickoff()  # Ejecuta la cadena completa</code></pre>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: ARQUITECTURA (Mermaid) -->
+<!-- ============================================================ -->
+<section data-transition="slide">
+  <h2>Arquitectura del sistema</h2>
+  <img src="arquitectura.svg" alt="Arquitectura del sistema" style="max-height:480px;">
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: STACK TECNOLÓGICO -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Stack tecnológico</h2>
+  <table>
+    <thead>
+      <tr><th>Componente</th><th>Tecnología</th><th>Función</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Orquestación</td><td><code>CrewAI</code></td><td>Coordina los 3 agentes</td></tr>
+      <tr><td>LLM</td><td><code>Gemini 2.5 Flash</code></td><td>Razonamiento y análisis</td></tr>
+      <tr><td>Búsqueda web</td><td><code>Serper API</code></td><td>Encuentra fuentes reales</td></tr>
+      <tr><td>Ejecución</td><td><code>Python + Jupyter</code></td><td>Notebook reproducible</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment concept-box" style="border-left-color: var(--accent-orange); margin-top:0.5em;">
+    <strong>Clave:</strong> Los agentes buscan información real en internet — no inventan fuentes.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: CLAIMS VERIFICADOS -->
+<!-- ============================================================ -->
+<section data-transition="slide">
+  <h2>Claims verificados</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Claim</th><th>Veredicto</th></tr>
+    </thead>
+    <tbody>
+      <tr class="fragment"><td>1</td><td>La Morenada es originaria de Perú</td><td><span class="badge badge-coral">FALSO</span></td></tr>
+      <tr class="fragment"><td>2</td><td>La Diablada se originó en Puno, Perú</td><td><span class="badge badge-coral">FALSO</span></td></tr>
+      <tr class="fragment"><td>3</td><td>El Caporal es una danza peruana</td><td><span class="badge badge-coral">FALSO</span></td></tr>
+      <tr class="fragment"><td>4</td><td>El Pujllay es una danza boliviana</td><td><span class="badge badge-green">VERDADERO</span></td></tr>
+    </tbody>
+  </table>
+  <p class="fragment" style="font-size:0.8em; color: var(--text-secondary); margin-top:0.5em;">
+    El claim 4 (Pujllay) es un <strong>control</strong> — demuestra que el sistema no dice "FALSO" a todo.
+  </p>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: MORENADA -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Claim 1: La Morenada</h2>
+  <div class="veredicto-falso" style="text-align:center;">FALSO</div>
+  <div style="margin-top:0.8em; text-align:left;">
+    <p><strong>Evidencia clave:</strong></p>
+    <ul style="font-size:0.85em !important;">
+      <li class="fragment">UNESCO reconoce la Morenada en el <strong>Carnaval de Oruro</strong> (Bolivia)</li>
+      <li class="fragment"><strong>Ley 135 de 2011</strong> de Bolivia la declara Patrimonio Cultural e Inmaterial</li>
+      <li class="fragment">BBC Mundo describe el origen como <strong>"disputado"</strong>, no exclusivo de Perú</li>
+    </ul>
+    <p class="fragment" style="font-size:0.8em; color: var(--text-secondary);">
+      Fuentes: UNESCO, BBC Mundo, Wikipedia, UCSP
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: DIABLADA -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Claim 2: La Diablada</h2>
+  <div class="veredicto-falso" style="text-align:center;">FALSO</div>
+  <div style="margin-top:0.8em; text-align:left;">
+    <p><strong>Evidencia clave:</strong></p>
+    <ul style="font-size:0.85em !important;">
+      <li class="fragment">Wikipedia y múltiples fuentes sitúan el origen en <strong>Oruro, Bolivia</strong></li>
+      <li class="fragment">Historiador peruano reconoce que llegó a Puno <strong>en 1918 desde Bolivia</strong></li>
+      <li class="fragment">Infobae y La República la describen como de <strong>origen altiplánico compartido</strong></li>
+    </ul>
+    <p class="fragment" style="font-size:0.8em; color: var(--text-secondary);">
+      Fuentes: Wikipedia, Infobae, La República, PuntoEdu PUCP
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: CAPORAL -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Claim 3: El Caporal</h2>
+  <div class="veredicto-falso" style="text-align:center;">FALSO</div>
+  <div style="margin-top:0.8em; text-align:left;">
+    <p><strong>Evidencia clave:</strong></p>
+    <ul style="font-size:0.85em !important;">
+      <li class="fragment">Creada por los <strong>hermanos Estrada Pacheco</strong> en La Paz, Bolivia, en <strong>1969</strong></li>
+      <li class="fragment">La <strong>Cámara de Diputados de Bolivia</strong> celebra oficialmente su origen boliviano</li>
+      <li class="fragment">Ninguna fuente confiable la atribuye como creación peruana</li>
+    </ul>
+    <p class="fragment" style="font-size:0.8em; color: var(--text-secondary);">
+      Fuentes: Wikipedia, Cámara de Diputados Bolivia, Sayacaporal.com
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: PUJLLAY -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Claim 4: El Pujllay (control)</h2>
+  <div class="veredicto-verdadero" style="text-align:center;">VERDADERO</div>
+  <div style="margin-top:0.8em; text-align:left;">
+    <p><strong>Evidencia clave:</strong></p>
+    <ul style="font-size:0.85em !important;">
+      <li class="fragment"><strong>UNESCO</strong> inscribió "El Pujllay y el Ayarichi" como Patrimonio Inmaterial</li>
+      <li class="fragment">Origen en la <strong>cultura Yampara</strong> de Chuquisaca, Bolivia</li>
+      <li class="fragment">Todas las fuentes coinciden — <strong>no hay controversia</strong></li>
+    </ul>
+    <p class="fragment" style="font-size:0.8em; color: var(--text-secondary);">
+      Fuentes: UNESCO, Wikipedia, Parlamento Andino
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: COMPARACIÓN DE LLMs -->
+<!-- ============================================================ -->
+<section data-transition="slide">
+  <h2>Lección aprendida: el LLM importa</h2>
+  <p style="font-size:0.85em;">Mismas fuentes de búsqueda, diferente razonamiento:</p>
+  <table>
+    <thead>
+      <tr><th>Claim</th><th>Gemini (API)</th><th>Llama 3.1 8B (local)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Morenada es peruana</td><td><span class="badge badge-coral">FALSO</span></td><td><span class="badge badge-orange">PARCIALMENTE CIERTO</span></td></tr>
+      <tr><td>Caporal es peruano</td><td><span class="badge badge-coral">FALSO</span></td><td><span class="badge badge-orange">PARCIALMENTE CIERTO</span></td></tr>
+      <tr><td>Pujllay es boliviano</td><td><span class="badge badge-green">VERDADERO</span></td><td><span class="badge badge-green">VERDADERO</span></td></tr>
+    </tbody>
+  </table>
+  <div class="fragment concept-box" style="border-left-color: var(--accent-coral);">
+    <strong>Conclusión:</strong> La búsqueda web no basta — se necesita capacidad de <strong>razonamiento</strong> para contrastar fuentes correctamente.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: MÉTRICAS -->
+<!-- ============================================================ -->
+<section data-transition="fade">
+  <h2>Métricas de ejecución</h2>
+  <table>
+    <thead>
+      <tr><th>Métrica</th><th>Valor</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Claims verificados</td><td>4</td></tr>
+      <tr><td>Total de tokens</td><td>538,815</td></tr>
+      <tr><td>Llamadas al LLM</td><td>120</td></tr>
+      <tr><td>Promedio por claim</td><td>~135,000 tokens</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment concept-box" style="border-left-color: var(--accent-orange);">
+    <strong>Desafío práctico:</strong> CrewAI hace ~30 llamadas por claim. El tier gratuito de Gemini (20 RPD) no alcanza — fue necesario habilitar billing en Google Cloud.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: PREGUNTAS REFLEXIVAS -->
+<!-- ============================================================ -->
+<section data-transition="slide">
+  <h2>Reflexiones</h2>
+  <div class="concept-box fragment" style="border-left-color: var(--accent-green);">
+    <strong>Fortalezas de CrewAI:</strong> Orquestación transparente, integración con APIs, resultados estructurados y reproducibles.
+  </div>
+  <div class="concept-box fragment" style="border-left-color: var(--accent-coral);">
+    <strong>Debilidades:</strong> Alto consumo de tokens, dependencia de la calidad del LLM, sin verificación de veracidad de fuentes.
+  </div>
+  <div class="concept-box fragment" style="border-left-color: var(--accent-purple);">
+    <strong>Escenarios reales:</strong> Defensa del patrimonio cultural, monitoreo de desinformación en redes, educación sobre folklore boliviano.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: CONCLUSIONES -->
+<!-- ============================================================ -->
+<section data-transition="zoom">
+  <h2>Conclusiones</h2>
+  <ul>
+    <li class="fragment">Un sistema multi-agente puede <strong>verificar claims culturales</strong> automáticamente con evidencia real</li>
+    <li class="fragment">La <strong>calidad del LLM</strong> es determinante — modelos pequeños fallan en la interpretación</li>
+    <li class="fragment">La <strong>Morenada, Diablada y Caporal</strong> son danzas bolivianas con evidencia verificable (UNESCO, leyes, académicos)</li>
+    <li class="fragment">Estas herramientas <strong>amplifican</strong> la capacidad humana de verificación, no la reemplazan</li>
+  </ul>
+  <hr class="fragment" style="border:none; height:3px; background:linear-gradient(90deg, var(--accent-coral), var(--accent-orange), var(--accent-green)); border-radius:2px; width:50%; margin:1em auto;">
+  <p class="fragment" style="font-size:0.8em; color: var(--text-secondary);">
+    Laboratorio 4 — Módulo 10: NLP — Maestría en Ciencia de Datos, UAGRM
+  </p>
+</section>
+
+</div>
+</div>
+
+<script src="https://unpkg.com/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://unpkg.com/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: true,
+  transition: 'slide',
+  plugins: [ RevealHighlight ]
+});
+</script>
+</body>
+</html>

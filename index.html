@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veronica Tancara — Portafolio Data Science</title>
+<meta name="description" content="Portafolio académico de Veronica Tancara — Maestría en Data Science (MIAV1E3, UAGRM SOE). Proyectos en Big Data, ML, NLP, BI, Cloud y más.">
+<style>
+  :root { --bg:#fafaf9; --fg:#1a1a1a; --muted:#6b6b6b; --accent:#0f5d4f; --card:#fff; --border:#e5e5e5; --tag-bg:#eef2f1; --tag-fg:#0f5d4f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.55; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  header { border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2.5rem; }
+  header h1 { margin: 0 0 0.25rem; font-size: 2.4rem; letter-spacing: -0.02em; }
+  header .subtitle { color: var(--muted); font-size: 1.05rem; margin: 0 0 1rem; }
+  header .contact { font-size: 0.9rem; color: var(--muted); }
+  header .contact a { color: var(--accent); text-decoration: none; }
+  header .contact a:hover { text-decoration: underline; }
+  section.intro { margin-bottom: 3rem; max-width: 760px; color: #2a2a2a; }
+  h2.section-title { font-size: 1.55rem; margin: 3rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+
+  .featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .featured-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.18s, box-shadow 0.18s; }
+  .featured-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+  .featured-card .thumb { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg,#f0f0ef,#e3e3e1); display: flex; align-items: center; justify-content: center; }
+  .featured-card .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .featured-card .body { padding: 1.1rem 1.25rem 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+  .featured-card .module-tag { font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.4rem; }
+  .featured-card h3 { margin: 0 0 0.55rem; font-size: 1.05rem; line-height: 1.3; overflow-wrap: anywhere; }
+  .featured-card p { margin: 0 0 0.9rem; font-size: 0.88rem; color: #3a3a3a; flex-grow: 1; overflow-wrap: anywhere; }
+  .featured-card .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.85rem; }
+  .featured-card .tag { background: var(--tag-bg); color: var(--tag-fg); font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; font-weight: 500; }
+  .featured-card .links { display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.83rem; }
+  .featured-card .links a { color: var(--accent); text-decoration: none; border: 1px solid var(--accent); padding: 0.22rem 0.6rem; border-radius: 4px; transition: background 0.15s, color 0.15s; overflow-wrap: anywhere; max-width: 100%; }
+  .featured-card .links a:hover { background: var(--accent); color: white; }
+
+  .materia { margin-bottom: 2.25rem; }
+  .materia h3 { margin: 0 0 0.5rem; font-size: 1.15rem; color: var(--accent); border-left: 4px solid var(--accent); padding-left: 0.7rem; }
+  .materia .blurb { margin: 0 0 0.85rem; color: #3a3a3a; font-size: 0.95rem; max-width: 820px; }
+  .materia ul.entregas { margin: 0; padding-left: 1.4rem; color: #444; font-size: 0.9rem; max-width: 820px; }
+  .materia ul.entregas li { margin-bottom: 0.3rem; }
+  .materia ul.entregas .semana { display: inline-block; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.4rem; font-weight: 600; min-width: 4.5em; }
+  .materia.empty .blurb { color: var(--muted); font-style: italic; }
+
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Veronica Tancara</h1>
+    <p class="subtitle">Data Scientist · Maestría en Data Science (MIAV1E3, UAGRM SOE)</p>
+    <p class="contact"><a href="mailto:veronica.tancara.c@gmail.com">veronica.tancara.c@gmail.com</a></p>
+  </header>
+  <section class="intro">
+    <p>Portafolio académico con proyectos desarrollados durante los 13 módulos de la maestría. Incluye trabajos en <strong>Big Data, Machine Learning, NLP, Cloud, BI</strong> y análisis estadístico. Sección destacada arriba; el detalle por materia se encuentra debajo.</p>
+  </section>
+  <h2 class="section-title">Proyectos destacados</h2>
+  <div class="featured-grid">
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-02-data-big-data-open-data__S02-A04E3-Analisis-gran-volumen-datos-PySpark-1.png" alt="Análisis de gran volumen de datos con PySpark" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M02 · Data, Big Data and Open Data</div>
+        <h3>Análisis de gran volumen de datos con PySpark</h3>
+        <p>Procesamiento de un dataset masivo con Apache Spark para realizar análisis exploratorio, agregaciones y consultas distribuidas usando PySpark sobre HDFS.</p>
+        <div class="tags">
+          <span class="tag">PySpark</span>
+          <span class="tag">Big Data</span>
+          <span class="tag">HDFS</span>
+        </div>
+        <div class="links">
+          <a href="files/modulo-02-data-big-data-open-data/A04-S02-Analisis_de_gran_volumen_de_datos_con_PySpark/S02-A04E3-Analisis-gran-volumen-datos-PySpark-1.pdf">S02-A04E3-Analisis-gran-vol… (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-02-data-big-data-open-data__S04-A06-Focos_de_calor-1.png" alt="Análisis geoespacial de focos de calor" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M02 · Data, Big Data and Open Data</div>
+        <h3>Análisis geoespacial de focos de calor</h3>
+        <p>Análisis de datos satelitales geoespaciales para detectar y caracterizar focos de calor, combinando procesamiento de datos abiertos con visualización cartográfica.</p>
+        <div class="tags">
+          <span class="tag">Geoespacial</span>
+          <span class="tag">Open Data</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="links">
+          <a href="files/modulo-02-data-big-data-open-data/S4-A06-An%C3%A1lisis_de_focos_de_calor/S04-A06-Focos_de_calor-1.pdf">S04-A06-Focos_de_calor-1 (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-03-cloud-computing__Trabajo-administracion-de-redes-AWS.png" alt="Administración de servidores en AWS — red personalizada" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M03 · Cloud Computing e Infraestructura Big Data</div>
+        <h3>Administración de servidores en AWS — red personalizada</h3>
+        <p>Diseño e implementación de una infraestructura cloud en AWS con red personalizada (VPC), subredes públicas y privadas, y administración de servidores EC2.</p>
+        <div class="tags">
+          <span class="tag">AWS</span>
+          <span class="tag">VPC</span>
+          <span class="tag">EC2</span>
+          <span class="tag">Cloud</span>
+        </div>
+        <div class="links">
+          <a href="files/modulo-03-cloud-computing/Tarea_2_Grupal_Administraci%C3%B3n_de_Servidores_en_un_red_Personalizada_AWS/Trabajo-administracion-de-redes-AWS.pdf">Trabajo-administracion-de-r… (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-05-analisis-estadistico__Evaluaci%C3%B3n_Final_-_Heart_Disease_Dataset.png" alt="Predicción de enfermedad cardíaca — Heart Disease Dataset" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M05 · Análisis Estadístico de Datos</div>
+        <h3>Predicción de enfermedad cardíaca — Heart Disease Dataset</h3>
+        <p>Análisis estadístico completo sobre el Heart Disease Dataset: estadística descriptiva, pruebas de hipótesis, regresión logística y métricas de clasificación.</p>
+        <div class="tags">
+          <span class="tag">Estadística</span>
+          <span class="tag">Python</span>
+          <span class="tag">Clasificación</span>
+        </div>
+        <div class="links">
+          <a href="files/modulo-05-analisis-estadistico/Evaluaci%C3%B3n_Final/Evaluaci%C3%B3n_Final_-_Heart_Disease_Dataset.pdf">Evaluación Final - Heart Di… (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-07__spotify-storytelling.png" alt="Storytelling Spotify — Narrativa de Datos con Power BI" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M07 · Data Visualization &amp; Visual Analytics</div>
+        <h3>Storytelling con Power BI — la nueva era del streaming musical</h3>
+        <p>Narrativa visual sobre tendencias globales de streaming musical (Spotify): dashboards interactivos en Power BI, storytelling de datos y comunicación de insights a audiencias no técnicas.</p>
+        <div class="tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">Storytelling</span>
+          <span class="tag">Spotify</span>
+        </div>
+        <div class="links">
+          <a href="files/featured/m07-narrativa/La%20Nueva%20Era%20del%20Streaming.pdf">Presentación completa</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-08__cnn-informe.png" alt="Redes Neuronales Convolucionales (CNN)" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M08 · Machine Learning &amp; Deep Learning</div>
+        <h3>Redes Neuronales Convolucionales (CNN)</h3>
+        <p>Implementación y entrenamiento de una red neuronal convolucional para clasificación de imágenes, comparando arquitecturas y técnicas de regularización.</p>
+        <div class="tags">
+          <span class="tag">Deep Learning</span>
+          <span class="tag">CNN</span>
+          <span class="tag">TensorFlow</span>
+        </div>
+        <div class="links">
+          <a href="files/featured/m08-cnn/Informe_Final_Actividad_6.pdf">Informe Final</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-09__INFORME_PROYECTO_MINERIA_DATOS.png" alt="Proyecto integrador de Clasificación de Datos" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M09 · Data Mining</div>
+        <h3>Proyecto integrador de Clasificación de Datos</h3>
+        <p>Pipeline completo de minería de datos: preprocesamiento, selección de características, entrenamiento de múltiples clasificadores y evaluación comparativa.</p>
+        <div class="tags">
+          <span class="tag">Data Mining</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="links">
+          <a href="files/featured/m09-clasificacion/INFORME_PROYECTO_MINERIA_DATOS.pdf">Informe del Proyecto</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-10__nlp-lab4-informe.png" alt="Fact-checking automático con Transformers" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M10 · Natural Language Processing (NLP)</div>
+        <h3>Fact-checking automático con Transformers</h3>
+        <p>Sistema de verificación de hechos basado en modelos Transformer (HuggingFace), fine-tuning sobre dataset etiquetado y evaluación de métricas NLP.</p>
+        <div class="tags">
+          <span class="tag">NLP</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">HuggingFace</span>
+        </div>
+        <div class="links">
+          <a href="files/featured/m10-factcheck/informe.pdf">Informe</a>
+          <a href="files/featured/m10-factcheck/laboratorio_4_factcheck_executed.ipynb">Notebook ejecutado</a>
+          <a href="files/featured/m10-factcheck/slides_factcheck.html">Slides de presentación</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-12__hadoop-spark.svg" alt="Capstone: Hadoop + Spark sobre Airbnb NYC" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M12 · Practicing Data Science</div>
+        <h3>Capstone: Hadoop + Spark sobre Airbnb NYC</h3>
+        <p>Evaluación integradora aplicando arquitectura medallón (Bronze/Silver/Gold) sobre el dataset Airbnb NYC 2019 con Hadoop y Spark.</p>
+        <div class="tags">
+          <span class="tag">Hadoop</span>
+          <span class="tag">Spark</span>
+          <span class="tag">Medallón</span>
+        </div>
+        <div class="links">
+          <a href="files/modulo-12-practicing/Prueba_Final_-_Hadoop_y_Spark/PruebaFinal.pdf">PruebaFinal (PDF)</a>
+        </div>
+      </div>
+    </div>
+    <div class="featured-card">
+      <div class="thumb"><img src="assets/thumbs/modulo-12__databricks-logo.svg" alt="Pipelines de datos en Databricks" loading="lazy"></div>
+      <div class="body">
+        <div class="module-tag">M12 · Practicing Data Science</div>
+        <h3>Pipelines de datos en Databricks</h3>
+        <p>Implementación de pipelines ETL en Databricks: arquitectura medallón con Delta Lake, transformaciones en notebooks PySpark y operaciones sobre clusters administrados.</p>
+        <div class="tags">
+          <span class="tag">Databricks</span>
+          <span class="tag">Delta Lake</span>
+          <span class="tag">PySpark</span>
+        </div>
+        <div class="links">
+          <a href="files/featured/m12-databricks/practica-databricks.pdf">Informe</a>
+          <a href="files/featured/m12-databricks/notebook-bronze-silver-gold.ipynb">Notebook Bronze/Silver/Gold</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Proyectos por materia</h2>
+
+  <div class="materia">
+    <h3>M01 · Fundamentos de Ingeniería de Software</h3>
+    <p class="blurb">Fundamentos de programación en Python orientada a datos: POO, manejo de archivos y desarrollo de un proyecto integrador.</p>
+    <ul class="entregas">
+      <li><span class="semana">S2</span>Tutorial 1： Programación Orientada a Objetos en Python</li>
+      <li><span class="semana">S4</span>Tutorial 2： Procesamiento de Archivos con Python (Ejercicio Adicional)</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M02 · Data, Big Data and Open Data</h3>
+    <p class="blurb">Captura, procesamiento y análisis de grandes volúmenes de datos con PySpark, datos abiertos y análisis geoespacial.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Llenado de formulario para la captura de datos</li>
+      <li><span class="semana">S1</span>Práctica de google Colab - análisis de datos recolectados</li>
+      <li><span class="semana">S2</span>Analisis datos libres ⧸ open data</li>
+      <li><span class="semana">S2</span>Analisis de gran volumen de datos con PySpark</li>
+      <li><span class="semana">S3</span>Geodatos y Mapa Cartográfico</li>
+      <li><span class="semana">S4</span>Análisis de focos de calor</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M03 · Cloud Computing e Infraestructura Big Data</h3>
+    <p class="blurb">Infraestructura cloud: diseño de redes virtuales en AWS, administración de servidores, comparación con GCP y patrones de despliegue.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Acceso y Diferentes AZ, AWS y GCP</li>
+      <li><span class="semana">S2</span>Tarea 2 Grupal Administración de Servidores en un red Personalizada AWS</li>
+    </ul>
+  </div>
+
+  <div class="materia empty">
+    <h3>M04 · Data Management &amp; Business Intelligence</h3>
+    <p class="blurb">Modelado de datos relacional y dimensional, diseño de data warehouses, paquetes ETL y construcción de cubos OLAP para BI.</p>
+  </div>
+
+  <div class="materia">
+    <h3>M05 · Análisis Estadístico de Datos</h3>
+    <p class="blurb">Estadística descriptiva e inferencial aplicada con Python: pruebas de hipótesis, regresión y análisis sobre datasets reales.</p>
+    <ul class="entregas">
+      <li><span class="semana">S3</span>Práctico 01</li>
+      <li><span class="semana">S3</span>Práctico 02</li>
+      <li><span class="semana">S4</span>Evaluación Final</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M06 · Metodología de la Investigación</h3>
+    <p class="blurb">Metodología de investigación científica aplicada a Data Science: planteamiento, marco teórico y diseño metodológico.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>“Definición de tema y relación con líneas de investigación”</li>
+      <li><span class="semana">S2</span>“Fundamentación del proyecto： planteamiento del problema y diseño teórico”</li>
+      <li><span class="semana">S3</span>“Diseño del marco teórico referencial de la investigación”</li>
+      <li><span class="semana">S3</span>“Naturaleza metodológica de la investigación”</li>
+      <li><span class="semana">S4</span>ACTIVIDAD 5 “Reporte de los resultados y su discusión”</li>
+      <li><span class="semana">S4</span>ACTIVIDAD 6 “Integración de componentes de avance preliminar de la monografía”</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M07 · Data Visualization &amp; Visual Analytics</h3>
+    <p class="blurb">Visualización analítica y storytelling de datos: caso de estudio, modelo de datos, dashboards empresariales y narrativa.</p>
+    <ul class="entregas">
+      <li><span class="semana">S4</span>Narrativa De Datos</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M08 · Machine Learning &amp; Deep Learning</h3>
+    <p class="blurb">Aprendizaje supervisado y no supervisado: regresión, modelos clásicos de ML y redes neuronales convolucionales.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Regresión lineal con Python(Tarea individual)</li>
+      <li><span class="semana">S2</span>Investigación sobre modelos aprendizaje ML (en grupos)</li>
+      <li><span class="semana">S3</span>Actividad 5 - Machine Learning (en grupo)</li>
+      <li><span class="semana">S4</span>Actividad 6 – Redes Convolucionales (en grupos)</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M09 · Data Mining</h3>
+    <p class="blurb">Técnicas de minería de datos: clasificación, agrupamiento y mapas auto-organizados (SOM) en proyectos integradores.</p>
+    <ul class="entregas">
+      <li><span class="semana">S2</span>Clasificacion de Datos</li>
+      <li><span class="semana">S4</span>Tarea 2</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M10 · Natural Language Processing (NLP)</h3>
+    <p class="blurb">Procesamiento de lenguaje natural moderno: 4 laboratorios completos (text analytics, embeddings, RNN/LSTM/Transformers y fact-checking automático con Transformers).</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Laboratorio 1</li>
+      <li><span class="semana">S2</span>Laboratorio 2</li>
+      <li><span class="semana">S3</span>Laboratorio 3</li>
+      <li><span class="semana">S4</span>Laboratorio 4</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M11 · Taller de Tesis I</h3>
+    <p class="blurb">Definición y desarrollo del proyecto de tesis sobre patrimonio cultural boliviano: planteamiento, diseño teórico, métodos e instrumentos.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Definición del Tema y relación con las Líneas de Investigación SOE FICCT</li>
+      <li><span class="semana">S1</span>Naturaleza metodológica de la investigación</li>
+      <li><span class="semana">S2</span>Fundamentación del planteamiento del problema</li>
+      <li><span class="semana">S3</span>Diseño teórico de la investigación</li>
+      <li><span class="semana">S4</span>Proyecto de investigación</li>
+      <li><span class="semana">S4</span>Selección de Métodos, técnicas e instrumentos</li>
+    </ul>
+  </div>
+
+  <div class="materia">
+    <h3>M12 · Practicing Data Science</h3>
+    <p class="blurb">Ingeniería de datos a escala: MapReduce sobre Hadoop, Spark SQL, arquitectura medallón (Bronze/Silver/Gold) en Databricks con Delta Lake.</p>
+    <ul class="entregas">
+      <li><span class="semana">S1</span>Practica 1： Map reduce</li>
+      <li><span class="semana">S2</span>Practica 2： Cliente Hadoop</li>
+      <li><span class="semana">S2</span>Practica 3 - Introduccion a Spark</li>
+      <li><span class="semana">S3</span>Practica 4 - ETL Spark SQL</li>
+      <li><span class="semana">S4</span>Practica Opcional - Databricks</li>
+      <li><span class="semana">S4</span>Prueba Final - Hadoop y Spark</li>
+    </ul>
+  </div>
+
+  <div class="materia empty">
+    <h3>M13 · Generative Models &amp; Computer Vision</h3>
+    <p class="blurb">Modelos generativos modernos y visión por computadora aplicada — módulo en curso.</p>
+  </div>
+
+  <footer>Veronica Tancara · Maestría en Data Science · MIAV1E3 · UAGRM SOE · 2026</footer>
+</div>
+</body>
+</html>
